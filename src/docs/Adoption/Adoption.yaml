@@ -1,0 +1,33 @@
+paths:
+  /api/adoptions/:
+    post: 
+      summary: Permite que un usuario pueda adoptar una mascota
+      tags: [Adoption]
+      parameters:
+        - $ref: '#components/parameters/uid'
+        - $ref: '#components/parameters/uid'
+      responses:
+        "200":
+          description: "Se pudo adoptar a la mascota de forma correcta"
+
+components:
+  parameters:
+    uid:
+      name: uid 
+      in: path
+      description: 'Id del usuario'
+      required: true 
+      schema:
+        type: string
+        example: '507f1f77bcf86cd799439011'
+    pid:
+      name: pid 
+      in: path
+      description: Id de la mascota
+      required: true 
+      schema:
+        type: string
+        example: '507f1f77bcf86cd799439011'  
+    
+    
+

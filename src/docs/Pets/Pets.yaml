@@ -1,0 +1,39 @@
+paths:
+  /api/pets/:
+    post:
+     summary: permite crear una mascota
+     tags: [Pets]
+     requestBody:
+      required: true 
+      content: 
+        application/json:
+          schema:
+            $ref: '#components/requestBodies/Pet'
+     responses:
+      "200":
+        description: "Se pudo crear la mascota de forma correcta"
+components:
+  requestBodies:
+    Pet: 
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+        specie: 
+          type: string
+          required: true
+        birthDate:
+          type: string
+          required: true
+        owner:
+          type: string
+        image: 
+          type: string
+      example:
+        name: 'einstein'
+        specie: dog
+        birthDate: "yyyy-mm-dd"
+        owner: 507f1f77bcf86cd799439011
+        image: "1671549990926-coderDog.jpg"
+

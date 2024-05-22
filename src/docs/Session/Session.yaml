@@ -1,0 +1,46 @@
+paths:
+  /api/sessions/register:
+    post:
+      summary: endpoint que nos permite registrar un usuario nuevo en el sistema
+      tags: [Session]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name: 
+                  type: string
+                  required: true 
+                last_name:
+                  type: string 
+                  required: true
+                email:
+                  type: string
+                  required: true
+                password:
+                  type: string
+                  required: true
+              example:
+                first_name: john
+                last_name: doe
+                email: johndoe@email.com
+                password: 1234
+      responses:
+        "200":
+          description: 'El usuario fue registrado  de forma exitosa'
+        "400":
+          description: No se han suministrado todos los atributos necesarios para crear una usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  error:
+                    type: string 
+                example:
+                  status: "error"
+                  error: "missing or incomplete values"

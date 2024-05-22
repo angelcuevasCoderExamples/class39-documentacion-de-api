@@ -1,0 +1,115 @@
+paths:
+  /api/users/:
+    get:
+      summary: Obtiene todos los usuarios disponibles
+      tags: [Users]
+      responses:
+        "200":
+          description: Los usuarios fueron obtenidos de forma satisfactoria de la base de datos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/User'
+        "500":
+          description: Error en el servidor
+
+  /api/users/{uid}:
+    get:
+      summary: Obtiene un sólo usuario de los disponibles, buscándolo por id
+      tags: [Users]
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: id del usuario que se desea solicitar
+        schema:
+          type: string
+          example: 507f1f77bcf86cd799439011
+      responses:
+        "200":
+          description: Usuario obtenido de forma satisfactoria de la base de datos
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/User'
+    put:
+      summary: 'Actualiza los datos de un usuario'
+      tags: [Users]
+      parameters:
+      - name: uid 
+        in: path
+        required: true
+        description: id del usuario solicitado
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/updateUser'
+      responses:
+        "200":
+          description: Usuario obtenido de forma satisfactoria de la base de datos
+    delete:
+      summary: 'Borra un usuario'
+      tags: [Users]
+      parameters:
+      - name: uid 
+        in: path
+        required: true
+        description: id del usuario solicitado
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Se borró de forma exitosa el usuario           
+
+components: 
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          describir: id autogenerado por mongo
+        first_name:
+          type: string
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario 
+        email:
+          type: string
+          description: Correo del usuario 
+        password:
+          type: string
+          description: Contraseña Hasheada del usuario 
+      example:
+        _id: ObjectId("507f1f77bcf86cd799439011")
+        first_name: John
+        last_name:  DOe
+        email: johndoe@email.com
+        password: $2b$10$1tNrFoQEWrG42j7FgPt4s.iUGDJsdDu6Cx6GKPrH7GF60ETvPVwL2
+  requestBodies:
+    updateUser:
+      type: object
+      properties: 
+        first_name:
+          type: string|Number
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario 
+        email:
+          type: string
+          description: Correo del usuario 
+        password:
+          type: string
+          description: Contraseña Hasheada del usuario
+      example:
+        first_name: john  
+        last_name: doe
+        email: johndoe@email.com
+        password: $asdasdasdasdasd  
